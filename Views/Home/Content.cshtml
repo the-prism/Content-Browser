@@ -1,0 +1,77 @@
+﻿@model ContentViewModel
+@{
+    ViewData["Title"] = "Content";
+}
+
+<h1>Content</h1>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="/Home/@Model.ParentPath">/ @Model.ParentPath</a></li>
+        @if (Model.PreviousFile != null)
+        {
+            <li class="page-item"><a class="page-link" href="/Home/@Model.PreviousFile">Previous</a></li>
+        }
+        @if (Model.NextFile != null)
+        {
+            <li class="page-item"><a class="page-link" href="/Home/@Model.NextFile">Next</a></li>
+        }
+    </ul>
+</nav>
+
+@if (!Model.IsFolder)
+{
+    @if (Model.ContentType.StartsWith("image"))
+    {
+        <img width="1280" src="@Model.ContentPath" />
+    }
+    else if (Model.ContentType.StartsWith("video"))
+    {
+        <video controls width="1280" autoplay>
+
+            <source src="@Model.ContentPath"
+                    type="@Model.ContentType">
+
+            Sorry, your browser doesn't support embedded videos.
+        </video>
+    }
+    else
+    {
+        <p>@Model.ContentType</p>
+    }
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @if (Model.PreviousFile != null)
+            {
+                <li class="page-item"><a class="page-link" href="/Home/@Model.PreviousFile">Previous</a></li>
+            }
+            @if (Model.NextFile != null)
+            {
+                <li class="page-item"><a class="page-link" href="/Home/@Model.NextFile">Next</a></li>
+            }
+        </ul>
+    </nav>
+}
+else
+{
+    <h3>Folders</h3>
+    <ul>
+        @foreach (var item in Model.ContentChildsFolders)
+        {
+            <li>
+                <a href="/Home/@item">@item</a>
+            </li>
+        }
+    </ul>
+
+    <h3>Files</h3>
+    <ul>
+        @foreach (var item in Model.ContentChildsFiles)
+        {
+            <li>
+                <a href="/Home/@item">@item</a>
+            </li>
+        }
+    </ul>
+}
