@@ -30,7 +30,7 @@ namespace Content_Browser.Controllers
 
                 Response.Headers.Add("Content-Disposition", cd.ToString());
 
-                return File(filedata, contentType);
+                return File(filedata, contentType, enableRangeProcessing: true);
             }
             else
             {
