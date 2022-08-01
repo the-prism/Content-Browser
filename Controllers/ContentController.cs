@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Content_Browser.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 
 namespace Content_Browser.Controllers
 {
@@ -19,7 +20,6 @@ namespace Content_Browser.Controllers
             FileInfo fileInfo = new FileInfo(filepath);
             if (fileInfo.Exists)
             {
-                byte[] filedata = System.IO.File.ReadAllBytes(filepath);
                 string contentType = MimeMapping.MimeUtility.GetMimeMapping(filepath);
 
                 var cd = new System.Net.Mime.ContentDisposition
@@ -30,7 +30,9 @@ namespace Content_Browser.Controllers
 
                 Response.Headers.Add("Content-Disposition", cd.ToString());
 
-                return File(filedata, contentType, enableRangeProcessing: true);
+                IFileProvider x = new PhysicalFileProvider(Path.GetDirectoryName(filepath));
+                IFileInfo fi = x.GetFileInfo(fileInfo.Name);
+                return File(fi.CreateReadStream(), contentType, enableRangeProcessing: true);
             }
             else
             {
