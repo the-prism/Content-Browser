@@ -59,8 +59,8 @@ else
     <ul>
         @foreach (var item in Model.ContentChildsFolders)
         {
-            <li>
-                <a href="/Home/@item">@item</a>
+            <li class="mb-2">
+                <a class="btn btn-warning btn-sm" role="button" href="/Home/@item">@item</a>
             </li>
         }
     </ul>
@@ -69,8 +69,8 @@ else
     <ul>
         @foreach (var item in Model.ContentChildsFiles)
         {
-            <li>
-                <a href="/Home/@item">@item</a>
+            <li class="mb-2">
+                <a class="btn btn-info btn-sm" role="button" href="/Home/@item">@item</a>
             </li>
         }
     </ul>
