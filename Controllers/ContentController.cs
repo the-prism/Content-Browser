@@ -15,7 +15,7 @@ namespace Content_Browser.Controllers
         [Route("/Content/{**path}")]
         public IActionResult Index(string path)
         {
-            string filepath = Properties.Resources.ContentPath + path;
+            string filepath = Program.ContentPath + path;
 
             FileInfo fileInfo = new FileInfo(filepath);
             if (fileInfo.Exists)

@@ -29,13 +29,13 @@ namespace Content_Browser.Controllers
         public IActionResult FileBrowser(string path)
         {
             ContentViewModel viewModel = new ContentViewModel();
-            string filepath = Properties.Resources.ContentPath + path;
+            string filepath = Program.ContentPath + path;
 
             DirectoryInfo directory = new DirectoryInfo(filepath);
             if (directory.Exists)
             {
                 viewModel.IsFolder = true;
-                viewModel.ParentPath = directory.Parent.ToString().Replace(Properties.Resources.ContentPath, "").Replace('\\', '/');
+                viewModel.ParentPath = directory.Parent.ToString().Replace(Program.ContentPath, "").Replace('\\', '/');
                 if (viewModel.ParentPath.StartsWith('/'))
                 {
                     viewModel.ParentPath = viewModel.ParentPath.Remove(0, 1);
@@ -48,12 +48,12 @@ namespace Content_Browser.Controllers
 
                 foreach (var contentPath in arrayFolder)
                 {
-                    viewModel.ContentChildsFolders.Add(contentPath.Replace(Properties.Resources.ContentPath, "").Replace('\\', '/'));
+                    viewModel.ContentChildsFolders.Add(contentPath.Replace(Program.ContentPath, "").Replace('\\', '/'));
                 }
 
                 foreach (var contentPath in arrayFiles)
                 {
-                    viewModel.ContentChildsFiles.Add(contentPath.Replace(Properties.Resources.ContentPath, "").Replace('\\', '/'));
+                    viewModel.ContentChildsFiles.Add(contentPath.Replace(Program.ContentPath, "").Replace('\\', '/'));
                 }
             }
             else
@@ -62,7 +62,7 @@ namespace Content_Browser.Controllers
                 if (file.Exists)
                 {
                     viewModel.IsFolder = false;
-                    viewModel.ParentPath = file.Directory.ToString().Replace(Properties.Resources.ContentPath, "").Replace('\\', '/');
+                    viewModel.ParentPath = file.Directory.ToString().Replace(Program.ContentPath, "").Replace('\\', '/');
                     if (viewModel.ParentPath.StartsWith('/'))
                     {
                         viewModel.ParentPath = viewModel.ParentPath.Remove(0, 1);
@@ -78,11 +78,11 @@ namespace Content_Browser.Controllers
                         {
                             if (i != 0)
                             {
-                                viewModel.PreviousFile = arrayFiles[i - 1].Replace(Properties.Resources.ContentPath, "").Replace('\\', '/');
+                                viewModel.PreviousFile = arrayFiles[i - 1].Replace(Program.ContentPath, "").Replace('\\', '/');
                             }
                             if (i != (arrayFiles.Length - 1))
                             {
-                                viewModel.NextFile = arrayFiles[i + 1].Replace(Properties.Resources.ContentPath, "").Replace('\\', '/');
+                                viewModel.NextFile = arrayFiles[i + 1].Replace(Program.ContentPath, "").Replace('\\', '/');
                             }
                             break;
                         }

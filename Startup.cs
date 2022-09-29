@@ -52,6 +52,8 @@ namespace Content_Browser
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Program.ContentPath = Configuration["ContentPath"];
         }
     }
 }

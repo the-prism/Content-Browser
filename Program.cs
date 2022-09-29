@@ -11,6 +11,8 @@ namespace Content_Browser
 {
     public class Program
     {
+        public static string ContentPath { get; set; }
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
